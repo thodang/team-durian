@@ -1,0 +1,156 @@
+[
+  {
+    "name": "James Butt",
+    "email": "jbutt@gmail.com",
+    "address": {
+      "street": "6649 N Blue Gum St",
+      "city": "New Orleans",
+      "state": "LA",
+      "zipcode": "70116"
+    }
+  },
+  {
+    "name": "Josephine Darakjy",
+    "email": "josephine_darakjy@darakjy.org",
+    "address": {
+      "street": "4 B Blue Ridge Blvd",
+      "city": "Brighton",
+      "state": "MI",
+      "zipcode": "48116"
+    }
+  },
+  {
+    "name": "Art Venere",
+    "email": "art@venere.org",
+    "address": {
+      "street": "8 W Cerritos Ave #5",
+      "city": "Bridgeport",
+      "state": "NJ",
+      "zipcode": "08014"
+    }
+  },
+  {
+    "name": "Lenna Paprocki",
+    "email": "lpaprocki@hotmail.com",
+    "address": {
+      "street": "639 Main St",
+      "city": "Anchorage",
+      "state": "AK",
+      "zipcode": "99501"
+    }
+  },
+  {
+    "name": "Donette Foller",
+    "email": "donette.foller@cox.net",
+    "address": {
+      "street": "34 Center St",
+      "city": "Hamilton",
+      "state": "OH",
+      "zipcode": "45011"
+    }
+  },
+  {
+    "name": "SimonaMorasca",
+    "email": "simona@morasca.com",
+    "address": {
+      "street": "3 Mcauley Dr",
+      "city": "Ashland",
+      "state": "OH",
+      "zipcode": "44805"
+    }
+  },
+  {
+    "name": "MitsueTollner",
+    "email": "mitsue_tollner@yahoo.com",
+    "address": {
+      "street": "7 Eads St",
+      "city": "Chicago",
+      "state": "IL",
+      "zipcode": "60632"
+    }
+  },
+  {
+    "name": "Leota Dilliard",
+    "email": "leota@hotmail.com",
+    "address": {
+      "street": "7 W Jackson Blvd",
+      "city": "San Jose",
+      "state": "CA",
+      "zipcode": "95111"
+    }
+  },
+  {
+    "name": "Sage Wieser",
+    "email": "sage_wieser@cox.net",
+    "address": {
+      "street": "5 Boston Ave #88",
+      "city": "Sioux Falls",
+      "state": "SD",
+      "zipcode": "57105"
+    }
+  },
+  {
+    "name": "Kris Marrier",
+    "email": "kris@gmail.com",
+    "address": {
+      "street": "228 Runamuck Pl #2808",
+      "city": "Baltimore",
+      "state": "MD",
+      "zipcode": "21224"
+    }
+  },
+  {
+    "name": "Minna Amigon",
+    "email": "minna_amigon@yahoo.com",
+    "address": {
+      "street": "2371 Jerrold Ave",
+      "city": "Kulpsville",
+      "state": "PA",
+      "zipcode": "19443"
+    }
+  },
+  {
+    "name": "Abel Maclead",
+    "email": "amaclead@gmail.com",
+    "address": {
+      "street": "37275 St  Rt 17m M",
+      "city": "Middle Island",
+      "state": "NY",
+      "zipcode": "11953"
+    }
+  },
+  {
+    "name": "Kiley Caldarera",
+    "email": "kiley.caldarera@aol.com",
+    "address": {
+      "street": "25 E 75th St #69",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zipcode": "90034"
+    }
+  },
+  {
+    "name": "Graciela Ruta",
+    "email": "gruta@cox.net",
+    "address": {
+      "street": "98 Connecticut Ave Nw",
+      "city": "Chagrin Falls",
+      "state": "OH",
+      "zipcode": "44023"
+    }
+  },
+  {
+    "name": "Cammy Albares",
+    "email": "calbares@gmail.com",
+    "address": {
+      "street": "56 E Morehead St",
+      "city": "Laredo",
+      "state": "TX",
+      "zipcode": "78045"
+    }
+  }
+]
+
+
+
+

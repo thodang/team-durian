@@ -1,0 +1,122 @@
+[
+  {
+    "isbn": "9780435910105",
+    "title": "Opening Spaces: An Anthology of Contemporary African Women's Writing",
+    "authors": [ "Yvonne Vera" ],
+    "price": "14.50",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9781906523374",
+    "title": "The Caine Prize for African Writing 2010: 11th Annual Collection",
+    "authors": [ "The Caine Prize for African Writing" ],
+    "price": "13.46",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9780813190761",
+    "title": "Unchained Voices: An Anthology of Black Authors in the English-Speaking World of the Eighteenth Century",
+    "authors": [ "Vincent Carretta" ],
+    "price": "30.00",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9781558615007",
+    "title": "Women Writing Africa: West Africa and the Sahel",
+    "authors": [ "Esi Sutherland-Addy (Editor)", "Abena P. A. Busia (Editor)", "Aminata Diaw" ],
+    "price": "29.95",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9781592211517",
+    "title": "Introduction to African Oral Literature and Performance",
+    "authors": [ "Bayo Ogunjimi", "Abdul Rasheed Na'allah" ],
+    "price": "23.95",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9780803211025",
+    "title": "Violence in Francophone African and Caribbean Women's Literature",
+    "authors": [ "Marie-Chantal Kalisa" ],
+    "price": "45.00",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9780253211101",
+    "title": "Oral Epics from Africa",
+    "authors": [ "John William Johnson", "Thomas A. Hale", "Stephen (Eds.) Belcher", "Thomas A. Hale (Editor)", "Stephen Belcher" ],
+    "price": "24.95",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9780912469096",
+    "title": "African Fundamentalism: A Literary and Cultural Anthology of Garvey's Harlem Renaissance",
+    "authors": [ "Tony Martin" ],
+    "price": "14.95",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9780140100044",
+    "title": "Land Apart: A South African Reader",
+    "authors": [ "Andre Brink", "J. M. Coetzee" ],
+    "price": "12.71",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9781558615342",
+    "title": "Women Writing Africa: The Eastern Region",
+    "authors": [ "Amandina Lihamba (Editor)", "Fulata L. Moyo (Editor)", "Mugaybuso M. Mulokozi" ],
+    "price": "29.95",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9780795701849",
+    "title": "Nobody Ever Said AIDS: Poems and Stories from Southern Africa",
+    "authors": [ "Nobantu Rasebotsa (Editor)", "Kylie Thomas (Editor)", "Meg Samuelson (Editor)", "Njabulo S. Ndebele" ],
+    "price": "22.13 ",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9780471380603",
+    "title": "Step into a World: A Global Anthology of the New Black Literature",
+    "authors": [ "Kevin Powell" ],
+    "price": "26.31 ",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9780844212029",
+    "title": "Traditions in World Literature: Literature of Africa, Softcover Student Edition",
+    "authors": [ "McGraw-Hill" ],
+    "price": "7.55 ",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9781869140014",
+    "title": "Love Child",
+    "authors": [ "Amandina Lihamba (Editor)", "Fulata L. Moyo (Editor)", "Mugaybuso M. Mulokozi" ],
+    "price": "8.97",
+    "total_inventory": 5,
+    "available_inventory": 5
+  },
+  {
+    "isbn": "9781770091450",
+    "title": "Seventh Street Alchemy 2004: A Selection of Works from the Caine Prize for African Writing",
+    "authors": [ "Monica Arac de Nyeko", "Doreen Baingana", "Parselelo Kantai" ],
+    "price": "25.13 ",
+    "total_inventory": 5,
+    "available_inventory": 5
+  }
+]

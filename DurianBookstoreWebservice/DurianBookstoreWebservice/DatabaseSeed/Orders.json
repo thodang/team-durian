@@ -1,0 +1,42 @@
+[
+  {
+    "customer_id": "5cc77cb04cd10e2ccc2fce4e",
+    "book_id": [ "5cc77c9b4cd10e2ccc2fce3e", "5cc77c9c4cd10e2ccc2fce40", "5cc77c9c4cd10e2ccc2fce42" ]
+  },
+  {
+    "customer_id": "5cc77cb04cd10e2ccc2fce4f",
+    "book_id": [ "5cc77c9c4cd10e2ccc2fce41", "5cc77c9b4cd10e2ccc2fce3e" ]
+  },
+  {
+    "customer_id": "5cc77cb04cd10e2ccc2fce50",
+    "book_id": [ "5cc77c9b4cd10e2ccc2fce3e" ]
+  },
+  {
+    "customer_id": "5cc77cb04cd10e2ccc2fce51",
+    "book_id": [ "5cc77c9c4cd10e2ccc2fce43", "5cc77c9c4cd10e2ccc2fce42", "5cc77c9c4cd10e2ccc2fce46" ]
+  },
+  {
+    "customer_id": "5cc77cb04cd10e2ccc2fce53",
+    "book_id": [ "5cc77c9b4cd10e2ccc2fce3e", "5cc77c9c4cd10e2ccc2fce4a", "5cc77c9c4cd10e2ccc2fce45" ]
+  },
+  {
+    "customer_id": "5cc77cb04cd10e2ccc2fce55",
+    "book_id": [ "5cc77c9c4cd10e2ccc2fce48" ]
+  },
+  {
+    "customer_id": "5cc77cb04cd10e2ccc2fce56",
+    "book_id": [ "5cc77c9b4cd10e2ccc2fce3e", "5cc77c9c4cd10e2ccc2fce46" ]
+  },
+  {
+    "customer_id": "5cc77cb04cd10e2ccc2fce58",
+    "book_id": [ "5cc77c9c4cd10e2ccc2fce49", "5cc77c9c4cd10e2ccc2fce47" ]
+  },
+  {
+    "customer_id": "5cc77cb04cd10e2ccc2fce5a",
+    "book_id": [ "5cc77c9c4cd10e2ccc2fce4b", "5cc77c9c4cd10e2ccc2fce4a", "5cc77c9c4cd10e2ccc2fce4c" ]
+  },
+  {
+    "customer_id": "5cc77cb04cd10e2ccc2fce5b",
+    "book_id": [ "5cc77c9c4cd10e2ccc2fce40" ]
+  }
+]
