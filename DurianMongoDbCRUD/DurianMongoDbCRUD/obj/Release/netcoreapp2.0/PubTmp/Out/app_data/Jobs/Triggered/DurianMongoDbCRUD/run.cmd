@@ -1,1 +1,0 @@
-dotnet DurianMongoDbCRUD.dll %*
