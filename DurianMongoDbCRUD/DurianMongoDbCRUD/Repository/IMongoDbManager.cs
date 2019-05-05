@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DurianMongoDbCRUD.Model;
+using MongoDB.Bson;
 
 namespace DurianMongoDbCRUD.Repository
 {
@@ -31,14 +32,14 @@ namespace DurianMongoDbCRUD.Repository
         /// </summary>
         /// <param name="order"></param>
         /// <returns></returns>
-        Task AddNewOrder(Order order);
+        Task<string> AddNewOrder(Order order);
 
         /// <summary>
         /// Add a new document to Customers collection
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
-        Task AddNewCustomer(Customer customer);
+        Task<string> AddNewCustomer(Customer customer);
 
         /// <summary>
         /// Get list of all the customers
@@ -51,7 +52,7 @@ namespace DurianMongoDbCRUD.Repository
         /// </summary>
         /// <param name="customerId"></param>
         /// <returns></returns>
-        Customer GetCustomerById(Guid customerId);
+        Customer GetCustomerById(string customerId);
 
         /// <summary>
         /// Get list of all the books
@@ -64,7 +65,7 @@ namespace DurianMongoDbCRUD.Repository
         /// </summary>
         /// <param name="bookId"></param>
         /// <returns></returns>
-        Book GetBookById(Guid bookId);
+        Book GetBookById(string bookId);
 
         /// <summary>
         /// Get list of all the orders
@@ -77,7 +78,7 @@ namespace DurianMongoDbCRUD.Repository
         /// </summary>
         /// <param name="orderId"></param>
         /// <returns></returns>
-        Order GetOrderById(Guid orderId);
+        Order GetOrderById(string orderId);
 
         void UpdateBookInventory(Book book);
     }

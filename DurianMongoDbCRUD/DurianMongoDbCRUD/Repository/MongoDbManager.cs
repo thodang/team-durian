@@ -72,12 +72,14 @@ namespace DurianMongoDbCRUD.Repository
             return false;
         }
 
-        public async Task AddNewOrder(Order order)
+        public async Task<string> AddNewOrder(Order order)
         {
             try
             {
                 var collection = _database.GetCollection<Order>(OrdersCollection);
                 await collection.InsertOneAsync(order);
+
+                return order.Id;
             }
             catch (Exception e)
             {
@@ -86,24 +88,31 @@ namespace DurianMongoDbCRUD.Repository
             }
         }
 
-        public async Task AddNewCustomer(Customer customer)
-        {
-            try
-            {
-                var collection = _database.GetCollection<Customer>(CustomersCollection);
-                await collection.InsertOneAsync(customer);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public Customer GetCustomerById(Guid customerId)
+        public async Task<string> AddNewCustomer(Customer customer)
         {
             var customers = _database.GetCollection<Customer>(CustomersCollection);
-            var filter = new FilterDefinitionBuilder<Customer>().Eq("customer_id", customerId);
+            var filter = new FilterDefinitionBuilder<Customer>().Empty;
+
+            try
+            {
+                //var lastId = customers.Find(filter).Sort("{customer_id: -1}").FirstOrDefault().customer_id;
+                //customer.customer_id = lastId++;
+                await customers.InsertOneAsync(customer);
+                var objectId = customer.Id;
+
+                return objectId;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public Customer GetCustomerById(string customerId)
+        {
+            var customers = _database.GetCollection<Customer>(CustomersCollection);
+            var filter = new FilterDefinitionBuilder<Customer>().Eq("Id", customerId);
 
             try
             {
@@ -146,10 +155,10 @@ namespace DurianMongoDbCRUD.Repository
             }
         }
 
-        public Book GetBookById(Guid bookId)
+        public Book GetBookById(string bookId)
         {
             var books = _database.GetCollection<Book>(BooksCollection);
-            var filter = new FilterDefinitionBuilder<Book>().Eq(b=> b.book_id, bookId);
+            var filter = new FilterDefinitionBuilder<Book>().Eq(b=> b.Id, bookId);
 
             try
             {
@@ -193,10 +202,10 @@ namespace DurianMongoDbCRUD.Repository
             }
         }
 
-        public Order GetOrderById(Guid orderId)
+        public Order GetOrderById(string orderId)
         {
             var orders = _database.GetCollection<Order>(OrdersCollection);
-            var filter = new FilterDefinitionBuilder<Order>().Eq("order_id", orderId);
+            var filter = new FilterDefinitionBuilder<Order>().Eq("Id", orderId);
 
             try
             {

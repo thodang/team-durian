@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using DurianMongoDbCRUD.Model;
 using DurianMongoDbCRUD.Repository;
+using MongoDB.Bson;
 
 namespace DurianMongoDbCRUD
 {
@@ -20,8 +21,8 @@ namespace DurianMongoDbCRUD
          */
         private static string _exeDirectory;
         private const string NewCustomerName = "New Customer";
-        private static Guid _newOrderId;
-        private static Guid _newCustomerId;
+        private static string _newOrderId;
+        private static string _newCustomerId;
 
         public static void Main(string[] args)
         {
@@ -53,8 +54,8 @@ namespace DurianMongoDbCRUD
                         PopulateBooksCollection();
                         Console.WriteLine("Generating Customers Collection ...");
                         PopulateCustomersCollection();
-                        Console.WriteLine("Generating Orders Collection ...");
-                        PopulateOrdersCollection();
+                        //Console.WriteLine("Generating Orders Collection ...");
+                        //PopulateOrdersCollection();
                         break;
 
                     case "b":
@@ -78,7 +79,7 @@ namespace DurianMongoDbCRUD
 
                     case "e":
                         Console.WriteLine("Updating inventory for newly created order ...");
-                        UpdateInventory();
+                        //UpdateInventory();
                         break;
 
                     case "x":
@@ -143,7 +144,6 @@ namespace DurianMongoDbCRUD
             {
                 var dbManager = new MongoDbManager();
                 dbManager.PopulateCollection(filePath, "orders");
-
             }
             catch (Exception e)
             {
@@ -169,10 +169,10 @@ namespace DurianMongoDbCRUD
 
         private static async Task CreateCustomer()
         {
-            _newCustomerId = Guid.NewGuid();
+            //_newCustomerId = Guid.NewGuid();
             var customer = new Customer
             {
-                customer_id = _newCustomerId,
+                //customer_id = _newCustomerId,
                 email = "newcustomer@gmail.com",
                 name = NewCustomerName,
                 address = new Address
@@ -187,9 +187,11 @@ namespace DurianMongoDbCRUD
             try
             {
                 var dbManager = new MongoDbManager();
-                await dbManager.AddNewCustomer(customer);
+                var newCustomer = await dbManager.AddNewCustomer(customer);
 
-                var newCustomer = dbManager.GetCustomerById(_newCustomerId);
+                _newCustomerId = customer.Id;
+
+                //var newCustomer = dbManager.GetCustomerById(_newCustomerId);
                 Console.WriteLine($"Added customer : {newCustomer}");
             }
             catch (Exception e)
@@ -197,10 +199,10 @@ namespace DurianMongoDbCRUD
                 throw new Exception($"Exception thrown while creating a new customer. {e.Message}");
             }
         }
-
+        
         private static async Task CreateOrderForCustomer()
         {
-            _newOrderId = Guid.NewGuid();
+            //_newOrderId = Guid.NewGuid();
 
             var requestedBooksIsbn = new List<string>
             {
@@ -231,24 +233,25 @@ namespace DurianMongoDbCRUD
                 }
 
                 var customer = dbManager.GetCustomerById(_newCustomerId);
-                var availableBookIds = availableBooks.Select(id => id.book_id).ToList();
+                var availableBookIds = availableBooks.Select(id => id.Id).ToList();
 
                 var order = new Order
                 {
-                    customer_id = customer.customer_id,
-                    order_id = _newOrderId,
+                    customer_id = customer.Id,
+                    //order_id = _newOrderId,
                     book_id = availableBookIds
                 };
 
                 await dbManager.AddNewOrder(order);
-                
+                _newOrderId = order.Id;
+
             }
             catch (Exception e)
             {
                 throw new Exception($"Exception thrown while creating an order for new customer. {e.Message}");
             }
         }
-
+        /*
         private static void UpdateInventory()
         {
             try
@@ -274,6 +277,6 @@ namespace DurianMongoDbCRUD
             }
 
         }
-
+        */
     }
 }

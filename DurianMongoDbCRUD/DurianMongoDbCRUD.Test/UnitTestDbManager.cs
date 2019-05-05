@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,8 +21,8 @@ namespace DurianMongoDbCRUD.Test
     {
         private static readonly string ExeDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         private readonly MongoDbManager _dbManager;
-        private Guid _newCustomerId;
-        private Guid _newOrderId;
+        private string _newCustomerId;
+        private string _newOrderId;
         private readonly List<string> _requestedBooksIsbn = new List<string>
         {
             "9781906523374",
@@ -76,7 +75,7 @@ namespace DurianMongoDbCRUD.Test
         {
             var dbManager = new MongoDbManager();
             var newCustomer = NewCustomer();
-            dbManager.AddNewCustomer(newCustomer).Wait();
+            _newCustomerId = dbManager.AddNewCustomer(newCustomer).Result;
 
             var dbCustomer = dbManager.GetCustomerById(_newCustomerId);
 
@@ -88,7 +87,6 @@ namespace DurianMongoDbCRUD.Test
         [Fact]
         public void Test4_CreateNewCustomerOrder()
         {
-            _newOrderId = Guid.NewGuid();
             var availableBooks = new List<Book>();
             var dbManager = new MongoDbManager();
 
@@ -103,16 +101,15 @@ namespace DurianMongoDbCRUD.Test
                 availableBooks.Add(book);
             }
 
-            var availableBookIds = availableBooks.Select(id => id.book_id).ToList();
+            var availableBookIds = availableBooks.Select(id => id.Id).ToList();
 
             var order = new Order
             {
-                customer_id = NewCustomer().customer_id,
-                order_id = _newOrderId,
+                customer_id = NewCustomer().Id,
                 book_id = availableBookIds
             };
 
-            dbManager.AddNewOrder(order).Wait();
+            _newOrderId = dbManager.AddNewOrder(order).Result;
 
             var dbOrder = dbManager.GetOrderById(_newOrderId);
 
@@ -124,7 +121,6 @@ namespace DurianMongoDbCRUD.Test
         [Fact]
         public void Test5_UpdateInventoryForNewOrder()
         {
-            _newOrderId = Guid.NewGuid();
             var availableBooks = new List<Book>();
             var dbManager = new MongoDbManager();
 
@@ -139,16 +135,15 @@ namespace DurianMongoDbCRUD.Test
                 availableBooks.Add(book);
             }
 
-            var availableBookIds = availableBooks.Select(id => id.book_id).ToList();
+            var availableBookIds = availableBooks.Select(id => id.Id).ToList();
 
             var order = new Order
             {
-                customer_id = NewCustomer().customer_id,
-                order_id = _newOrderId,
+                customer_id = NewCustomer().Id,
                 book_id = availableBookIds
             };
 
-            dbManager.AddNewOrder(order).Wait();
+            _newOrderId = dbManager.AddNewOrder(order).Result;
 
             var dbOrder = dbManager.GetOrderById(_newOrderId);
 
@@ -156,7 +151,7 @@ namespace DurianMongoDbCRUD.Test
 
             foreach (var b in books)
             {
-                if (!dbOrder.book_id.Contains(b.book_id)) continue;
+                if (!dbOrder.book_id.Contains(b.Id)) continue;
                 var availableInventory = b.available_inventory;
                 b.available_inventory = availableInventory - 1;
                 dbManager.UpdateBookInventory(b);
@@ -167,10 +162,8 @@ namespace DurianMongoDbCRUD.Test
 
         private Customer NewCustomer()
         {
-            _newCustomerId = Guid.NewGuid();
             return new Customer
             {
-                customer_id = _newCustomerId,
                 email = "newcustomer@gmail.com",
                 name = "New Customer",
                 address = new Address

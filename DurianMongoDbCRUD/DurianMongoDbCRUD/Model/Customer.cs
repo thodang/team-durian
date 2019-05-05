@@ -1,18 +1,21 @@
 ﻿using System;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace DurianMongoDbCRUD.Model
 {
     public class Customer
     {
-        public ObjectId Id { get; set; }
-        public Guid customer_id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
+        //public Guid customer_id { get; set; }
         public string name { get; set; }
         public string email { get; set; }
         public Address address { get; set; }
         public override string ToString()
         {
-            return string.Format($"Customer_Id: {customer_id}, Name: {name}, Email: {email}, Address: {address.street}, {address.city}, {address.state}, {address.zipcode}");
+            return string.Format($"Id: {Id}, Name: {name}, Email: {email}, Address: {address.street}, {address.city}, {address.state}, {address.zipcode}");
         }
     }
 
