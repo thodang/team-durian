@@ -2,7 +2,6 @@
 using DurianBookstoreWebservice.Model;
 using DurianBookstoreWebservice.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
@@ -35,6 +34,22 @@ namespace DurianBookstoreWebservice.Controllers
             }
 
             return BadRequest("Error getting all orders");
+        }
+
+        [HttpGet("fulfillment")]
+        public IActionResult GetOrdersForFulfilment()
+        {
+            try
+            {
+                var orders = _mongoDbManager.GetOrdersForFulfillment();
+                return Ok(JsonConvert.SerializeObject(orders.Result));
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Exception thrown while getting list of orders by Id: {e.Message}");
+            }
+
+            return BadRequest("Error getting orders by Id");
         }
 
         // Add new order

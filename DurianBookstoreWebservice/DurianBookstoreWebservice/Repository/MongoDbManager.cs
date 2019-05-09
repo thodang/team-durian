@@ -144,6 +144,21 @@ namespace DurianBookstoreWebservice.Repository
             }
         }
 
+        public async Task<List<Book>> GetAvailableBooks()
+        {
+            var books = _database.GetCollection<Book>(BooksCollection);
+            var filter = new FilterDefinitionBuilder<Book>().Gt(b => b.available_inventory, 0);
+            try
+            {
+                var results = await books.Find(filter).ToListAsync();
+                return results;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
         public Book GetBookById(string bookId)
         {
             var books = _database.GetCollection<Book>(BooksCollection);
@@ -165,15 +180,15 @@ namespace DurianBookstoreWebservice.Repository
             var books = _database.GetCollection<Book>(BooksCollection);
             var filter = new FilterDefinitionBuilder<Book>().Eq(b => b.isbn, isbn);
 
-            //try
-            //{
+            try
+            {
                 var result = books.Find(filter).FirstOrDefault();
                 return result;
-            //}
-            //catch (Exception e)
-            //{
-            //    throw new Exception(e.Message);
-            //}
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public async Task<List<Order>> GetAllOrders()
@@ -200,6 +215,22 @@ namespace DurianBookstoreWebservice.Repository
             {
                 var result = orders.Find(filter).FirstOrDefault();
                 return result;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public async Task<List<Order>> GetOrdersForFulfillment()
+        {
+            var orders = _database.GetCollection<Order>(OrdersCollection);
+            var filter = new FilterDefinitionBuilder<Order>().Eq("is_fulfilled", false);
+
+            try
+            {
+                var results = await orders.Find(filter).ToListAsync();
+                return results;
             }
             catch (Exception e)
             {

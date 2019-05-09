@@ -37,6 +37,22 @@ namespace DurianBookstoreWebservice.Controllers
             return BadRequest("Error getting all books");
         }
 
+        [HttpGet("available")]
+        public async Task<IActionResult> GetAavailableBooks()
+        {
+            try
+            {
+                var books = await _mongoDbManager.GetAvailableBooks();
+                return Ok(JsonConvert.SerializeObject(books));
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Exception thrown while getting list of books: {e.Message}");
+            }
+
+            return BadRequest("Error getting all books");
+        }
+
         [HttpGet("{isbn}")]
         public IActionResult GetBookByIsbn(string isbn)
         {

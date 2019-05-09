@@ -59,6 +59,12 @@ namespace DurianBookstoreWebservice.Repository
         Task<List<Book>> GetAllBooks();
 
         /// <summary>
+        /// Get list of available books - available_inventory > 0
+        /// </summary>
+        /// <returns></returns>
+        Task<List<Book>> GetAvailableBooks();
+
+        /// <summary>
         /// Get Book by BookId
         /// </summary>
         /// <param name="bookId"></param>
@@ -90,5 +96,11 @@ namespace DurianBookstoreWebservice.Repository
         /// </summary>
         /// <param name="orderId"></param>
         void OrderFulfilment(string orderId);
+
+        /// <summary>
+        /// Get all orders with is_fulfilled flag set to false
+        /// </summary>
+        /// <returns></returns>
+        Task<List<Order>> GetOrdersForFulfillment();
     }
 }
