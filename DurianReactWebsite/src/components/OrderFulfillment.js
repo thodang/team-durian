@@ -138,6 +138,7 @@ class OrderFulfillment extends React.Component {
   }
 
   fulfillOrder(list) {
+      this.setState({error: ""});
       for (var i = 0; i < list.length; i++){     
         OrderFulfillmentApi(list[i]).catch(e => {this.setState({error: e.response.data})});         
       }
