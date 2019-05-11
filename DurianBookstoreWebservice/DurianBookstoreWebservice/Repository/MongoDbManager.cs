@@ -238,7 +238,7 @@ namespace DurianBookstoreWebservice.Repository
             }
         }
 
-        public void OrderFulfilment(string orderId)
+        public bool OrderFulfilment(string orderId)
         {
             var orders = _database.GetCollection<Order>(OrdersCollection);
             var books = _database.GetCollection<Book>(BooksCollection);
@@ -251,6 +251,8 @@ namespace DurianBookstoreWebservice.Repository
                 {
                     var book = GetBookById(bookId);
                     var availableInventory = book.available_inventory - 1;
+                    if (availableInventory < 0)
+                        return false;
                     var bookUdateFilter = Builders<Book>.Filter.Eq("Id", ObjectId.Parse(book.Id));
                     var updateBook = Builders<Book>.Update.Set(x => x.available_inventory, availableInventory);
                     var bookUpdateResult = books.UpdateOneAsync(bookUdateFilter, updateBook).Result;
@@ -260,6 +262,8 @@ namespace DurianBookstoreWebservice.Repository
                 var orderUpdateFilter = Builders<Order>.Filter.Eq("Id", ObjectId.Parse(orderId));
                 var updateOrder = Builders<Order>.Update.Set(x => x.is_fulfilled, true);
                 var orderUpdateResult = orders.UpdateOneAsync(orderUpdateFilter, updateOrder).Result;
+
+                return true;
             }
             catch (Exception e)
             {

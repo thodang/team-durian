@@ -1,31 +1,3 @@
-/*
-@import "base/new_variables";
-@import "base/variables";
-@import "base/mixins";
-@import "base/login";
-
-@import "~pe7-icon/dist/scss/pe-icon-7-stroke.scss";
-@import "base/chartist";
-@import "~chartist/dist/scss/chartist.scss";
-@import "base/sidebar";
-@import "base/navbar";
-@import "base/card";
-@import "base/todos";
-@import "base/footer";
-@import "base/buttons";
-@import "base/pagination";
-@import "base/social-buttons";
-@import "base/icons";
-@import "base/panels";
-@import "base/typography";
-@import "base/form";
-@import "base/tags";
-@import "base/gridtable";
-@import "react-dates/styles";
-@import "base/appscards";
-
-*/
-
 html,
 body {
   font-size: 14px;
@@ -101,6 +73,13 @@ body {
   padding-left: 25px;
   font-size: 16px;
   font-weight: 500;
+}
+
+.error-text{
+  padding-left: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  color: red;
 }
 
 .table-header {

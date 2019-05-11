@@ -84,7 +84,9 @@ namespace DurianBookstoreWebservice.Controllers
         {
             try
             {
-                _mongoDbManager.OrderFulfilment(orderId);
+               var success = _mongoDbManager.OrderFulfilment(orderId);
+                if (!success)
+                    return BadRequest($"Order {orderId} contains books that are not available in inventory");
                 return Ok();
             }
             catch (Exception e)

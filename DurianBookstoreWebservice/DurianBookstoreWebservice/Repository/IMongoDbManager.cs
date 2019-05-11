@@ -95,7 +95,7 @@ namespace DurianBookstoreWebservice.Repository
         /// Go through books in an order and update available inventory 
         /// </summary>
         /// <param name="orderId"></param>
-        void OrderFulfilment(string orderId);
+        bool OrderFulfilment(string orderId);
 
         /// <summary>
         /// Get all orders with is_fulfilled flag set to false

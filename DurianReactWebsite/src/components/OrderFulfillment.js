@@ -133,13 +133,13 @@ class OrderFulfillment extends React.Component {
       bookOrders: [],
       page: 0,
       rowsPerPage: 10,
-      orderId: ""
+      error: ""
     };
   }
 
   fulfillOrder(list) {
       for (var i = 0; i < list.length; i++){     
-        OrderFulfillmentApi(list[i]);  
+        OrderFulfillmentApi(list[i]).catch(e => {this.setState({error: e.response.data})});         
       }
 
       this.setState({ selected: [] });   
@@ -215,8 +215,7 @@ class OrderFulfillment extends React.Component {
       orderBy,
       selected,
       rowsPerPage,
-      page,
-      orderId
+      page
     } = this.state;
     const emptyRows =
       rowsPerPage -
@@ -292,7 +291,7 @@ class OrderFulfillment extends React.Component {
           >
             Fulfill Order
           </Button>
-          <span className="response-text">{orderId}</span>
+          <span className="error-text">{this.state.error}</span>
         </div>
       </div>
     );
