@@ -1,6 +1,7 @@
 ﻿using System;
 using DurianBookstoreWebservice.Model;
 using DurianBookstoreWebservice.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -36,6 +37,7 @@ namespace DurianBookstoreWebservice.Controllers
             return BadRequest("Error getting all orders");
         }
 
+        [Authorize]
         [HttpGet("fulfillment")]
         public IActionResult GetOrdersForFulfilment()
         {
@@ -53,6 +55,7 @@ namespace DurianBookstoreWebservice.Controllers
         }
 
         // Add new order
+        [Authorize]
         [HttpPost]
         public IActionResult CreateNewOrder([FromBody] Order order)
         {
@@ -79,6 +82,7 @@ namespace DurianBookstoreWebservice.Controllers
             return BadRequest("Error creating new order");
         }
 
+        [Authorize]
         [HttpPut("{orderId}")]
         public IActionResult UpdateInventory(string orderId)
         {
