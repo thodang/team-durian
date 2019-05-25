@@ -1,3 +1,5 @@
+@import "base/login";
+
 html,
 body {
   font-size: 14px;
@@ -75,7 +77,7 @@ body {
   font-weight: 500;
 }
 
-.error-text{
+.error-text {
   padding-left: 25px;
   font-size: 16px;
   font-weight: 500;
@@ -86,4 +88,11 @@ body {
   padding: 10px;
   font-size: 24px;
   font-weight: 500;
+}
+
+.user-display {
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  padding-right: 20px;
 }

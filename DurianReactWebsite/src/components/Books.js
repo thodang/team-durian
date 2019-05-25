@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
@@ -21,6 +22,7 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import { lighten } from "@material-ui/core/styles/colorManipulator";
 import Button from "@material-ui/core/Button";
 import BookApi from "../api/BookApi";
+import { logout } from "../api/AuthActions";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -155,7 +157,7 @@ let EnhancedTableToolbar = props => {
 
   return (
     <div>
-      <div className="table-header">Books</div>
+      <span className="table-header">Books Collection</span>
       <Toolbar
         className={classNames(classes.root, {
           [classes.highlight]: numSelected > 0
@@ -223,6 +225,13 @@ class Books extends React.Component {
       rowsPerPage: 10,
       orderId: ""
     };
+
+    const emptyRows =
+      this.state.rowsPerPage -
+      Math.min(
+        this.state.rowsPerPage,
+        this.state.books.length - this.state.page * this.state.rowsPerPage
+      );
   }
 
   submitNewOrder(list) {
@@ -295,37 +304,94 @@ class Books extends React.Component {
 
   isSelected = id => this.state.selected.indexOf(id) !== -1;
 
-  render() {
-    const { classes } = this.props;
-    const {
-      books,
-      order,
-      orderBy,
-      selected,
-      rowsPerPage,
-      page,
-      orderId
-    } = this.state;
-    const emptyRows =
-      rowsPerPage - Math.min(rowsPerPage, books.length - page * rowsPerPage);
+  renderReadOnlyTable() {
+    return (
+      <Paper className={this.props.classes.root}>
+        <EnhancedTableToolbar numSelected={this.state.selected.length} />
+        <div className={this.props.classes.tableWrapper}></div>
+        <Table className={this.props.classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">ISBN</TableCell>
+              <TableCell align="left">Title</TableCell>
+              <TableCell align="left">Authors</TableCell>
+              <TableCell align="right">Available #</TableCell>
+              <TableCell align="right">Price ($)</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {stableSort(
+              this.state.books,
+              getSorting(this.state.order, this.state.orderBy)
+            )
+              .slice(
+                this.state.page * this.state.rowsPerPage,
+                this.state.page * this.state.rowsPerPage +
+                  this.state.rowsPerPage
+              )
+              .map(book => (
+                <TableRow key={book.Id}>
+                  <TableCell component="th" scope="row">
+                    {book.isbn}
+                  </TableCell>
+                  <TableCell align="left">{book.title}</TableCell>
+                  <TableCell align="left">{book.authors}</TableCell>
+                  <TableCell align="right">
+                    {book.available_inventory}
+                  </TableCell>
+                  <TableCell align="right">{book.price}</TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
 
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={this.state.books.length}
+          rowsPerPage={this.state.rowsPerPage}
+          page={this.state.page}
+          backIconButtonProps={{
+            "aria-label": "Previous Page"
+          }}
+          nextIconButtonProps={{
+            "aria-label": "Next Page"
+          }}
+          onChangePage={this.handleChangePage}
+          onChangeRowsPerPage={this.handleChangeRowsPerPage}
+        />
+      </Paper>
+    );
+  }
+
+  renderActiveTable() {
     return (
       <div>
-        <Paper className={classes.root}>
-          <EnhancedTableToolbar numSelected={selected.length} />
-          <div className={classes.tableWrapper}>
-            <Table className={classes.table} aria-labelledby="tableTitle">
+        <Paper className={this.props.classes.root}>
+          <EnhancedTableToolbar numSelected={this.state.selected.length} />
+          <div className={this.props.classes.tableWrapper}>
+            <Table
+              className={this.props.classes.table}
+              aria-labelledby="tableTitle"
+            >
               <EnhancedTableHead
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
+                numSelected={this.state.selected.length}
+                order={this.state.order}
+                orderBy={this.state.orderBy}
                 onSelectAllClick={this.handleSelectAllClick}
                 onRequestSort={this.handleRequestSort}
-                rowCount={books.length}
+                rowCount={this.state.books.length}
               />
               <TableBody>
-                {stableSort(books, getSorting(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                {stableSort(
+                  this.state.books,
+                  getSorting(this.state.order, this.state.orderBy)
+                )
+                  .slice(
+                    this.state.page * this.state.rowsPerPage,
+                    this.state.page * this.state.rowsPerPage +
+                      this.state.rowsPerPage
+                  )
                   .map(n => {
                     const isSelected = this.isSelected(n.Id);
                     return (
@@ -353,8 +419,8 @@ class Books extends React.Component {
                       </TableRow>
                     );
                   })}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: 49 * emptyRows }}>
+                {this.emptyRows > 0 && (
+                  <TableRow style={{ height: 49 * this.emptyRows }}>
                     <TableCell colSpan={6} />
                   </TableRow>
                 )}
@@ -364,9 +430,9 @@ class Books extends React.Component {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={books.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
+            count={this.state.books.length}
+            rowsPerPage={this.state.rowsPerPage}
+            page={this.state.page}
             backIconButtonProps={{
               "aria-label": "Previous Page"
             }}
@@ -381,20 +447,42 @@ class Books extends React.Component {
           <Button
             variant="contained"
             color="primary"
-            className={classes.button}
-            onClick={() => this.submitNewOrder(selected)}
+            className={this.props.classes.button}
+            onClick={() => this.submitNewOrder(this.state.selected)}
           >
             Submit Order
           </Button>
-          <span className="response-text">{orderId}</span>
+          <span className="response-text">{this.state.orderId}</span>
         </div>
       </div>
     );
   }
+
+  render() {
+    if (
+      this.props.auth.user === null ||
+      JSON.stringify(this.props.auth.user) === "{}"
+    ) {
+      return <div>{this.renderReadOnlyTable()}</div>;
+    } else {
+      return <div>{this.renderActiveTable()}</div>;
+    }
+  }
 }
 
 Books.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
-export default withStyles(styles)(Books);
+function mapStateToProps(state) {
+  return {
+    auth: state.Auth
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  { logout }
+)(withStyles(styles)(Books));

@@ -1,10 +1,45 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { HashRouter } from "react-router-dom";
 import "./Styles/base.scss";
+import setAuthorizationToken from "../src/Utils/setAuthorizationToken";
+import configureStore from "./config/configureStore";
+import { Provider } from "react-redux";
+import {
+  setCurrentUser,
+  getUserNameFromToken,
+  getUserIdFromToken
+} from "../src/api/AuthActions";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const store = configureStore();
+const rootElement = document.getElementById("root");
+
+if (localStorage.durianToken) {
+  store.dispatch(
+    setCurrentUser(
+      getUserNameFromToken(localStorage.durianToken),
+      getUserIdFromToken(localStorage.durianToken)
+    )
+  );
+}
+
+const renderApp = Component => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <HashRouter>
+        <Component />
+      </HashRouter>
+    </Provider>,
+    rootElement
+  );
+};
+
+renderApp(App);
+
+
+//ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

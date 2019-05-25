@@ -5,13 +5,14 @@ class Home extends Component {
     return (
       <div className="container-fluid">
         <br /> <h1>Welcome to Durian Online bookstore</h1>
-        <br /> <br />{" "}
-        <p>
-          <h4>
-            To browse our books collection or to order books, please click on
-            Books
-          </h4>
-        </p>
+        <br /> <br />
+        <h4>
+          <p>
+            To browse our books collection please click on Books menu options
+            <br />
+            To order new books or fulfill order, login to your account
+          </p>
+        </h4>
       </div>
     );
   }

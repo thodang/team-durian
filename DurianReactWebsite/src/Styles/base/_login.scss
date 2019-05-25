@@ -1,0 +1,72 @@
+.login-panel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  overflow: auto;
+  background-color: whitesmoke;
+}
+.form-input {
+  width: 350px;
+  height: 35px;
+  padding-left: 5px;
+}
+.control-label {
+  color: black;
+}
+.login-header {
+  color: black;
+  font-size: 50px;
+  padding-bottom: 20px;
+  font-weight: 400;
+}
+.login-button-div {
+  float: left;
+}
+.hyperlink-div {
+  margin-left: 30px;
+  margin-top: 20px;
+  float: left;
+  a,
+  a:hover {
+    color: black;
+  }
+}
+
+.has-error .checkbox,
+.has-error .checkbox-inline,
+.has-error .help-block,
+.has-error .radio,
+.has-error .radio-inline,
+.has-error.checkbox label,
+.has-error.checkbox-inline label,
+.has-error.radio label,
+.has-error.radio-inline label {
+  color: red;
+  font-size: 13px;
+}
+
+.has-error .control-label {
+  color: black;
+}
+
+.settings-header {
+  color: black;
+  font-size: 30px;
+  padding-bottom: 20px;
+  font-weight: 400;
+}
+
+.readonly-text {
+  color: whitesmoke;
+  font-size: 16px;
+  padding-bottom: 20px;
+  font-weight: 200;
+}
+
+.password-reset {
+  color: whitesmoke;
+  font-size: 16px;
+  padding-bottom: 20px;
+  font-weight: 300;
+}

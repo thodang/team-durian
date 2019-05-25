@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import OrderApi from "../api/OrderApi";
+import OrderFulfillmentApi from "../api/OrderFulfillmentApi";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -12,8 +14,6 @@ import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import Tooltip from "@material-ui/core/Tooltip";
 import Button from "@material-ui/core/Button";
-import OrderApi from "../api/OrderApi";
-import OrderFulfillmentApi from "../api/OrderFulfillmentApi";
 
 function desc(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -61,7 +61,7 @@ class EnhancedTableHead extends React.Component {
 
     return (
       <TableHead>
-        <div className="table-header">Order Fulfillment</div>
+        <span className="table-header">Order Fulfillment</span>
         <TableRow>
           <TableCell padding="checkbox">
             <Checkbox
@@ -138,18 +138,22 @@ class OrderFulfillment extends React.Component {
   }
 
   fulfillOrder(list) {
-      this.setState({error: ""});
-      for (var i = 0; i < list.length; i++){     
-        OrderFulfillmentApi(list[i]).catch(e => {this.setState({error: e.response.data})});         
-      }
+    this.setState({ error: "" });
+    for (var i = 0; i < list.length; i++) {
+      OrderFulfillmentApi(list[i]).catch(e => {
+        this.setState({ error: e.response.data });
+      });
+    }
 
-      this.setState({ selected: [] });   
+    this.setState({ selected: [] });
 
-      setTimeout(() => {
-        OrderApi().then(data => {        
-          this.setState({ bookOrders: data }, () => 
-          console.log(this.state.bookOrders));
-      })}, 2000);
+    setTimeout(() => {
+      OrderApi().then(data => {
+        this.setState({ bookOrders: data }, () =>
+          console.log(this.state.bookOrders)
+        );
+      });
+    }, 2000);
   }
 
   async componentDidMount() {
@@ -158,7 +162,7 @@ class OrderFulfillment extends React.Component {
     });
   }
 
-  handleRequestSort = (event, property) => {
+  handleRequestSort = property => {
     const orderBy = property;
     let order = "desc";
 
@@ -177,7 +181,7 @@ class OrderFulfillment extends React.Component {
     this.setState({ selected: [] });
   };
 
-  handleClick = (event, id) => {
+  handleClick = id => {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
