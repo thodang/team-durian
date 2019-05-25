@@ -162,7 +162,7 @@ class OrderFulfillment extends React.Component {
     });
   }
 
-  handleRequestSort = property => {
+  handleRequestSort = (event, property) => {
     const orderBy = property;
     let order = "desc";
 
@@ -181,7 +181,7 @@ class OrderFulfillment extends React.Component {
     this.setState({ selected: [] });
   };
 
-  handleClick = id => {
+  handleClick = (event, id) => {
     const { selected } = this.state;
     const selectedIndex = selected.indexOf(id);
     let newSelected = [];
