@@ -33,11 +33,12 @@ namespace DurianBookstoreWebservice.Controllers
         {
             try
             {
-                //user.Id = Guid.NewGuid();
-                //TODO: Update this later for security reason
+                if (user == null || string.IsNullOrEmpty(user.username))
+                    return BadRequest("Invalid User data");
+
                 var userId = _userRepository.RegisterUser(user).Result;
                 if (string.IsNullOrEmpty(userId))
-                    return Forbid($"Username {user.username} already exists");
+                    return BadRequest($"Username {user.username} already exists");
 
                 var accessToken = _tokenManager.GenerateToken(user.username, user.Id);
                 //Add the refreshToken to User object and save in DB

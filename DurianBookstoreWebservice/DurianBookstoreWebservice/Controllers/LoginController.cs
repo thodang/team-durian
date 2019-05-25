@@ -33,6 +33,9 @@ namespace DurianBookstoreWebservice.Controllers
         {
             try
             {
+                if (user == null || string.IsNullOrEmpty(user.username))
+                    return BadRequest("Invalid User data");
+
                 var validatedUser = _userRepository.ValidateUser(user, out var userExists);
 
                 if (validatedUser == null)
