@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurianAirBnBWebservice", "DurianAirBnBWebservice\DurianAirBnBWebservice.csproj", "{68FF6028-A967-4080-B66F-BE5758D2B136}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurianAirBnBWebservice.Test", "DurianAirBnBWebservice.Test\DurianAirBnBWebservice.Test.csproj", "{E5C134B5-C817-4EC7-84DD-865D09103AD5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68FF6028-A967-4080-B66F-BE5758D2B136}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68FF6028-A967-4080-B66F-BE5758D2B136}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68FF6028-A967-4080-B66F-BE5758D2B136}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68FF6028-A967-4080-B66F-BE5758D2B136}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5C134B5-C817-4EC7-84DD-865D09103AD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5C134B5-C817-4EC7-84DD-865D09103AD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5C134B5-C817-4EC7-84DD-865D09103AD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5C134B5-C817-4EC7-84DD-865D09103AD5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F7C8BA9-71A5-487E-9FEE-2EF659BF8BBF}
+	EndGlobalSection
+EndGlobal
