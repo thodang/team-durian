@@ -1,0 +1,211 @@
+@import "base/login";
+
+html,
+body {
+  font-size: 14px;
+}
+
+.loaderOverlay {
+  background: none repeat scroll 0 0 black;
+  position: fixed;
+  display: block;
+  opacity: 0.5;
+  z-index: 99998;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.loader {
+  position: fixed;
+  z-index: 99999;
+  top: 40%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  border: 6px solid #474747; /* Dark */
+  border-top: 6px solid #fdb913; /* Orange */
+  border-bottom: 6px solid #fdb913; /* Orange */
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/*
+.content {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+*/
+.page-title-header {
+  padding-left: 5px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: black;
+  font-weight: bold;
+  font-size: 16pt;
+}
+
+.bottom-spacing {
+  height: 75px;
+}
+
+.primary-button-div {
+  padding: 10px;
+}
+
+.response-text {
+  padding-left: 25px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.error-text {
+  padding-left: 25px;
+  font-size: 16px;
+  font-weight: 500;
+  color: red;
+}
+
+.table-header {
+  padding: 10px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.user-display {
+  font-size: 14px;
+  font-weight: 600;
+  color: black;
+  padding-right: 20px;
+}
+
+.page-margin {
+  padding-top: 100px;
+}
+
+.bg {
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+}
+
+.navbar-title-text {
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.navbar-item-text {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card-spacing {
+  margin-top: 30px;
+}
+
+.inline-div {
+  display: flex;
+  vertical-align: middle;
+}
+
+.bottom-spacing {
+  height: 75px;
+}
+
+.title-header {
+  font-size: 32px;
+  font-weight: bold;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+.section-header {
+  font-size: 24px;
+  font-weight: bold;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.review-header {
+  font-size: 18px;
+  font-weight: bold;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.review-date {
+  font-size: 18px;
+  padding-left: 20px;
+}
+
+.section-info {
+  font-size: 18px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.host-info {
+  font-size: 16px;
+  padding-right: 10px;
+}
+
+.host-id {
+  font-size: 14px;
+  padding-top: 3px;
+  padding-left: 10px;
+}
+
+.section-info-no-pad {
+  font-size: 18px;
+  padding-top: 20px;
+}
+
+.section-info-bold {
+  font-size: 18px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-weight: bold;
+}
+
+.hr-margin {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.listing-image {
+  height: 400px;
+  width: 800px;
+  margin-left: 25%;
+  margin-right: 25%;
+  padding-top: 20px;
+}
+
+.show-more {
+  font-size: 16px;
+  font-weight: bold;
+  color: green;
+}
+
+.right-div {
+  margin-left:auto; margin-right:50px;
+}
+
+.left-div {
+  float: left;
+}
