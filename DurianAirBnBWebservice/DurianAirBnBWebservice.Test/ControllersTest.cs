@@ -13,13 +13,13 @@ namespace DurianAirBnBWebservice.Test
     public class ControllersTest
     {
         [Fact]
-        public async Task Test1_BookController_GetAllBooks()
+        public async Task Test1_ListingController_GetAllListings()
         {            
             // Arrange
             var mockRepo = new Mock<IMongoDbManager>();
             var mockLogger = new Mock<ILogger<ListingController>>();
            
-           // mockRepo.Setup(repo => repo.GetAllBooks()).ReturnsAsync(GetBooks());
+            //mockRepo.Setup(repo => repo.GetAllBooks()).ReturnsAsync(GetBooks());
             //var listingController = new ListingController(mockRepo.Object, mockLogger.Object);
 
             // Act

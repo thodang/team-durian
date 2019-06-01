@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -16,5 +17,11 @@ namespace DurianAirBnBWebservice.Identity
         public string Password { get; set; }
         [BsonElement("web_sessions")]
         public List<UserWebSession> WebSessions { get; set; }
+        [BsonElement("passwordResetToken")]
+        public string PasswordResetToken { get; set; }
+        [BsonElement("resetTokenExpiration")]
+        public DateTime ResetTokenExpiration { get; set; }
+        [BsonElement("resetTokenActive")]
+        public bool ResetTokenActive { get; set; }
     }
 }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DurianAirBnBWebservice.Model;
 using Microsoft.Extensions.Configuration;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 
 namespace DurianAirBnBWebservice.Repository
@@ -51,33 +49,13 @@ namespace DurianAirBnBWebservice.Repository
             }
         }
 
-        public List<string> GetDistinctStates()
+        public async Task<List<LazyListing>> GetListingsByPagingAndFilter(string from, string count, string guests)
         {
-            var listings = _database.GetCollection<Listing>(ListingsCollection);
-            var filter = new FilterDefinitionBuilder<Listing>().Empty;
-            FieldDefinition<Listing, string> state = "state";
+            var listings = _database.GetCollection<LazyListing>(ListingsCollection);
+            var filter = new FilterDefinitionBuilder<LazyListing>().Eq("accommodates", Convert.ToInt32(guests));
             try
             {
-                var results =  listings.DistinctAsync(state, filter).GetAwaiter().GetResult().ToListAsync().GetAwaiter().GetResult();
-                results.Sort();
-                return results;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-        }
-
-        public List<int> GetDistinctZipcodes()
-        {
-            var listings = _database.GetCollection<Listing>(ListingsCollection);
-            var filter = new FilterDefinitionBuilder<Listing>().Empty;
-            FieldDefinition<Listing, int> state = "zipcode";
-            try
-            {
-                var results = listings.DistinctAsync(state, filter).GetAwaiter().GetResult().ToListAsync().GetAwaiter()
-                    .GetResult();
-                results.Sort();
+                var results = await listings.Find(filter).Skip(Convert.ToInt32(from)).Limit(Convert.ToInt32(count)).ToListAsync();
                 return results;
             }
             catch (Exception e)

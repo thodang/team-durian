@@ -46,6 +46,31 @@ namespace DurianAirBnBWebservice.Identity
         string GeneratePasswordHash(string password);
 
         /// <summary>
+        /// Get User by passwordResetToken
+        /// There should only be one unique passwordResetToken in users collection
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns>User</returns>
+        User GetUserByPasswordResetToken(string token);
+
+        /// <summary>
+        /// Generate a secure random token using RNGCryptoServiceProvider
+        /// Convert the token bytes to Base64String and store in DB
+        /// Update the user object and store the password reset information
+        /// in database
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>URLEncoded value for token value stored in DB</returns>
+        Task<string> GeneratePasswordResetTokenUrl(User user);
+
+        /// <summary>
+        /// Check for duplicate active passwordResetToken
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        bool IsDuplicateResetToken(string token);
+
+        /// <summary>
         /// Remove all the expired WebSessions for a user
         /// Check expiration data for Refresh Tokens
         /// If Refresh token is expired, remove the UserWebSession entry

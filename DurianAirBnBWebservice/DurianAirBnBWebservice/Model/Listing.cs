@@ -112,6 +112,8 @@ namespace DurianAirBnBWebservice.Model
         public double Longitude { get; set; }
         [BsonElement("price")]
         public string Price { get; set; }
+        [BsonElement("accommodates")]
+        public int Accommodates { get; set; }
         [BsonElement("number_of_reviews")]
         public int NumberOfReviews { get; set; }
         [BsonElement("review_scores_rating")]

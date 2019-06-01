@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Threading.Tasks;
+using DurianAirBnBWebservice.Helper;
 using DurianAirBnBWebservice.Identity;
 using DurianAirBnBWebservice.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +21,14 @@ namespace DurianAirBnBWebservice.Controllers
         private readonly UserRepository _userRepository;
         private readonly TokenManager _tokenManager;
         private readonly ILogger<LoginController> _logger;
+        private readonly IConfiguration _configuration;
 
         public LoginController(IConfiguration configuration, ILogger<LoginController> logger)
         {
             _userRepository = new UserRepository(configuration);
             _tokenManager = new TokenManager(configuration);
             _logger = logger;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -72,6 +75,61 @@ namespace DurianAirBnBWebservice.Controllers
             }
 
             return BadRequest("Unable to login User");
+        }
+
+        [HttpPost("forgotpassword")]
+        public async Task<IActionResult> ProcessForgotPassword([FromBody] User user)
+        {
+            try
+            {
+                var dbUser = _userRepository.GetUserByUsername(user.UserName);
+                if (dbUser == null)
+                {
+                    //For security, don't let user know if the provided username is invalid
+                    return Ok();
+                }
+
+                var token = _userRepository.GeneratePasswordResetTokenUrl(dbUser).Result;
+                var mailJet = new MailjetManager(_configuration);
+                await mailJet.SendPasswordResetEmailAsync(dbUser, token);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Exception thrown while user login: {e.Message}");
+            }
+
+            return BadRequest("Unable to update user password");
+        }
+
+        [HttpPost("passwordreset/{token}")]
+        public async Task<IActionResult> ResetPassword([FromBody] User user, string token)
+        {
+            try
+            {
+                var dbUser = _userRepository.GetUserByPasswordResetToken(token);
+
+                //if no user found or reset token is expired or reset token is not active, return
+                //for security reason, we don't need to let user know if there was any issue with password update
+                if (dbUser == null || DateTime.UtcNow > dbUser.ResetTokenExpiration || !dbUser.ResetTokenActive)
+                {
+                    return Ok();
+                }
+
+                dbUser.Password = _userRepository.GeneratePasswordHash(user.Password);
+                dbUser.ResetTokenActive = false;
+
+                await _userRepository.UpdateUserAsync(dbUser);
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Exception thrown while reseting user password: {e.Message}");
+            }
+
+            return BadRequest("Unable to update user password");
         }
     }
 }

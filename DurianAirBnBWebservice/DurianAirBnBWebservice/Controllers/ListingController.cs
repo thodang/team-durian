@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using DurianAirBnBWebservice.Model;
 using DurianAirBnBWebservice.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -49,13 +51,20 @@ namespace DurianAirBnBWebservice.Controllers
         /// </summary>
         /// <param name="from"></param>
         /// <param name="count"></param>
+        /// <param name="guests"></param>
         /// <returns></returns>
         [HttpGet("paged")]
-        public async Task<IActionResult> GetListingsByPagination([FromQuery]string from, [FromQuery]string count)
+        public async Task<IActionResult> GetListingsByPagination([FromQuery]string from, [FromQuery]string count, [FromQuery]string guests)
         {
             try
             {
-                var listings = await _mongoDbManager.GetListingsByPaging(from, count);
+                List<LazyListing> listings;
+
+                if(string.IsNullOrEmpty(guests) || guests.Equals("undefined"))
+                    listings = await _mongoDbManager.GetListingsByPaging(from, count);
+                else
+                    listings = await _mongoDbManager.GetListingsByPagingAndFilter(from, count, guests);
+
                 return Ok(JsonConvert.SerializeObject(listings));
             }
             catch (Exception e)

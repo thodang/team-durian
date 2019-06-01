@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
@@ -124,8 +125,11 @@ namespace DurianAirBnBWebservice.Identity
             try
             {
                 var userUdateFilter = Builders<User>.Filter.Eq("Id", ObjectId.Parse(user.Id));
-                var updateUser = Builders<User>.Update.Set(x => x.WebSessions, user.WebSessions);
-                var userUpdateResult = await users.UpdateOneAsync(userUdateFilter, updateUser);
+                var updatedUser = await users.FindOneAndReplaceAsync(userUdateFilter, user);
+
+
+                //var updateUser = Builders<User>.Update.Set(x => x.WebSessions, user.WebSessions);
+                //var userUpdateResult = await users.UpdateOneAsync(userUdateFilter, updateUser);
             }
             catch (Exception e)
             {
@@ -156,6 +160,72 @@ namespace DurianAirBnBWebservice.Identity
 
             //convert the byte array to string
             return Convert.ToBase64String(hashBytes);
+        }
+
+        public async Task<string> GeneratePasswordResetTokenUrl(User user)
+        {
+            string resetToken;
+
+            // Prevent duplicate reset token -
+            // RNGCryptoServiceProvider is cryptographic Random Number Generator 
+            // but since we're using regex to make it URL friendly,
+            // It's good to check for duplicate reset token just in case
+            while (true)
+            {
+                byte[] tokenBytes;
+                new RNGCryptoServiceProvider().GetBytes(tokenBytes = new byte[64]);
+                resetToken = Convert.ToBase64String(tokenBytes);
+
+                var rgx = new Regex("[^a-zA-Z0-9]");
+                resetToken = rgx.Replace(resetToken, "");
+                if (!IsDuplicateResetToken(resetToken))
+                {
+                    break;
+                }
+            }
+
+            user.PasswordResetToken = resetToken;
+            user.ResetTokenExpiration = DateTime.UtcNow.AddHours(5);
+            user.ResetTokenActive = true;
+
+            await UpdateUserAsync(user);
+
+            return resetToken;
+        }
+
+        public User GetUserByPasswordResetToken(string token)
+        {
+            var reviews = _database.GetCollection<User>(UsersCollection);
+            var filter = new FilterDefinitionBuilder<User>().Eq("passwordResetToken", token);
+
+            try
+            {
+                var result = reviews.Find(filter).FirstOrDefault();
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public bool IsDuplicateResetToken(string token)
+        {
+            var reviews = _database.GetCollection<User>(UsersCollection);
+            var filter = new FilterDefinitionBuilder<User>().Eq("passwordResetToken", token);
+            filter = filter & new FilterDefinitionBuilder<User>().Eq("resetTokenActive", true);
+
+            try
+            {
+                var result = reviews.Find(filter).ToList();
+
+                return result.Any();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public User RemoveExpiredUserWebSessions(User user)

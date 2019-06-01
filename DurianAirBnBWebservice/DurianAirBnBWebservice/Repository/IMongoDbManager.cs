@@ -21,16 +21,13 @@ namespace DurianAirBnBWebservice.Repository
         Task<List<LazyListing>> GetListingsByPaging(string from, string count);
 
         /// <summary>
-        /// Get list of distinct states
+        /// Get Listings by pagination and filter by guests number
         /// </summary>
+        /// <param name="from"></param>
+        /// <param name="count"></param>
+        /// <param name="guests"></param>
         /// <returns></returns>
-        List<string> GetDistinctStates();
-
-        /// <summary>
-        /// Get list of distinct zipcodes
-        /// </summary>
-        /// <returns></returns>
-        List<int> GetDistinctZipcodes();
+        Task<List<LazyListing>> GetListingsByPagingAndFilter(string from, string count, string guests);
 
         /// <summary>
         /// Get Listing Detail by listing Id

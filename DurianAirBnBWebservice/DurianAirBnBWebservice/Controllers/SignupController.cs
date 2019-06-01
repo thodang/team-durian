@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using DurianAirBnBWebservice.Helper;
 using DurianAirBnBWebservice.Identity;
 using DurianAirBnBWebservice.Model;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +16,14 @@ namespace DurianAirBnBWebservice.Controllers
         private readonly UserRepository _userRepository;
         private readonly TokenManager _tokenManager;
         private readonly ILogger<SignupController> _logger;
+        private readonly IConfiguration _configuration;
 
         public SignupController(IConfiguration configuration, ILogger<SignupController> logger)
         {
             _userRepository = new UserRepository(configuration);
             _tokenManager = new TokenManager(configuration);
             _logger = logger;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -46,6 +49,10 @@ namespace DurianAirBnBWebservice.Controllers
                 dynamic tokens = new ExpandoObject();
                 tokens.accessToken = accessToken;
                 tokens.refreshToken = session.RefreshToken;
+
+                //Send confirmation email
+                var mailJet = new MailjetManager(_configuration);
+                await mailJet.SendConfirmationEmailAsync(user);
 
                 return Ok(tokens);
             }
