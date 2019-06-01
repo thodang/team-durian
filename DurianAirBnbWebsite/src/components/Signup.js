@@ -141,12 +141,11 @@ class SignupForm extends React.Component {
                         group
                         type="email"
                         onChange={this.onChange}
-                        //getValue={this.handleInputChange("username")}
                         validate
                         required
                       >
                         <div className="invalid-feedback">
-                          Please use a valid email address.
+                          Invalid email address.
                         </div>
                       </MDBInput>
                       <MDBInput
@@ -180,7 +179,6 @@ class SignupForm extends React.Component {
                           Password cannot be empty.
                         </div>
                       </MDBInput>
-
                       <MDBRow className="d-flex align-items-center mb-4 mt-5">
                         <MDBCol md="5" className="d-flex align-items-start">
                           <div className="text-center">
@@ -189,7 +187,6 @@ class SignupForm extends React.Component {
                               rounded
                               type="submit"
                               className="z-depth-1a"
-                              //onClick={this.onSubmit}
                             >
                               Sign Up
                             </MDBBtn>

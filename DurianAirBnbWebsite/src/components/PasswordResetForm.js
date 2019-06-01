@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { login } from "../api/AuthActions";
+import { withRouter } from "react-router-dom";
 import {
   MDBContainer,
   MDBRow,
@@ -12,13 +11,15 @@ import {
   MDBInput,
   MDBBtn
 } from "mdbreact";
+import { resetPassword } from "../api/AuthActions";
 
-class LoginForm extends React.Component {
+class PasswordResetForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: "",
       password: "",
+      passwordConfirmation: "",
+      token: "",
       errors: {}
     };
 
@@ -27,8 +28,15 @@ class LoginForm extends React.Component {
   }
 
   isValid() {
-    if (this.state.username.length < 1 || this.state.password.length < 1) {
+    console.log("I'm validating");
+    if (
+      this.state.password.length < 1 ||
+      this.state.passwordConfirmation.length < 1
+    ) {
       return false;
+    }
+    if (this.state.password !== this.state.passwordConfirmation) {
+      return this.setState({ errors: "passwords do not match" });
     } else {
       this.setState({ errors: {} });
       return true;
@@ -36,8 +44,9 @@ class LoginForm extends React.Component {
   }
 
   handleInputChange = inputName => value => {
-    if (inputName === "username") {
-      this.setState({ username: value });
+    console.log("inputName: " + inputName + "value: " + value);
+    if (inputName === "passwordconfirm") {
+      this.setState({ passwordConfirmation: value });
     }
     if (inputName === "password") {
       this.setState({ password: value });
@@ -47,13 +56,21 @@ class LoginForm extends React.Component {
   onSubmit(e) {
     e.preventDefault();
     if (this.isValid()) {
-      this.setState({ errors: {} });
-      this.props.login(this.state).then(
-        res => this.props.history.push("/"),
-        err =>
-          this.setState({
-            errors: err.response.data
-          })
+      this.setState(
+        {
+          errors: {},
+          token: this.props.match.params.token
+        },
+        function() {
+          this.props.resetPassword(this.state).then(
+            () => {
+              this.props.history.push("/login");
+            },
+            err => {
+              this.setState({ errors: err.response.data });
+            }
+          );
+        }
       );
     }
     e.target.className += " was-validated";
@@ -63,13 +80,11 @@ class LoginForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  // Render the Login UI
   render() {
     let credentialError;
     if (this.state.errors.length > 0) {
       credentialError = this.state.errors;
     }
-
     return (
       <div className="bg cloudy-knoxville-gradient ">
         <div className="page-margin">
@@ -80,7 +95,7 @@ class LoginForm extends React.Component {
                   <div className="header pt-3 peach-gradient">
                     <MDBRow className="d-flex justify-content-center">
                       <h3 className="white-text mb-3 pt-3 font-weight-bold">
-                        LOG IN
+                        RESET PASSWORD
                       </h3>
                     </MDBRow>
                   </div>
@@ -100,20 +115,6 @@ class LoginForm extends React.Component {
                         </MDBRow>
                       </div>
                       <MDBInput
-                        value={this.state.username}
-                        name="username"
-                        label="Email Address"
-                        group
-                        type="email"
-                        onChange={this.onChange}
-                        validate
-                        required
-                      >
-                        <div className="invalid-feedback">
-                          Please use a valid email address.
-                        </div>
-                      </MDBInput>
-                      <MDBInput
                         value={this.state.password}
                         label="Password"
                         group
@@ -128,37 +129,35 @@ class LoginForm extends React.Component {
                           Password cannot be empty.
                         </div>
                       </MDBInput>
-                      <p className="font-small grey-text d-flex justify-content-end">
-                        <a
-                          href="/forgotpassword"
-                          className="dark-grey-text ml-1 font-weight-bold"
-                        >
-                          Forgot Password?
-                        </a>
-                      </p>
+
+                      <MDBInput
+                        value={this.state.passwordConfirmation}
+                        label="Confirm password"
+                        group
+                        type="password"
+                        validate
+                        required
+                        onChange={this.onChange}
+                        getValue={this.handleInputChange("passwordconfirm")}
+                        containerClass="mb-0"
+                      >
+                        <div className="invalid-feedback">
+                          Password cannot be empty.
+                        </div>
+                      </MDBInput>
                       <MDBRow className="d-flex align-items-center mb-4 mt-5">
                         <MDBCol md="5" className="d-flex align-items-start">
                           <div className="text-center">
                             <MDBBtn
                               color="grey"
                               rounded
-                              type="submit"
+                              type="button"
                               className="z-depth-1a"
+                              onClick={this.onSubmit}
                             >
-                              Log in
+                              Update Password
                             </MDBBtn>
                           </div>
-                        </MDBCol>
-                        <MDBCol md="7" className="d-flex justify-content-end">
-                          <p className="font-small grey-text mt-3">
-                            Don't have an account?
-                            <a
-                              href="/Signup"
-                              className="dark-grey-text ml-1 font-weight-bold"
-                            >
-                              Sign up
-                            </a>
-                          </p>
                         </MDBCol>
                       </MDBRow>
                     </form>
@@ -173,13 +172,17 @@ class LoginForm extends React.Component {
   }
 }
 
-LoginForm.propTypes = {
-  login: PropTypes.func.isRequired
+PasswordResetForm.propTypes = {
+  resetPassword: PropTypes.func.isRequired
+};
+
+PasswordResetForm.contextTypes = {
+  router: PropTypes.object.isRequired
 };
 
 export default withRouter(
   connect(
     null,
-    { login }
-  )(LoginForm)
+    { resetPassword }
+  )(PasswordResetForm)
 );

@@ -34,7 +34,9 @@ class Header extends React.Component {
     } else {
       return (
         <Nav>
-          <Navbar.Brand>{this.props.auth.user.toString()}</Navbar.Brand>
+          <Navbar.Brand className="username-display">
+            {this.props.auth.user.toString()}
+          </Navbar.Brand>
           <Nav.Link
             className="navbar-item-text"
             href="/login"

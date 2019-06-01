@@ -107,6 +107,12 @@ body {
   font-weight: 500;
 }
 
+.search-bar-text {
+  color: Black;
+  font-size: 20px;
+  font-weight: 500;
+}
+
 .navbar-item-text {
   color: white;
   font-size: 18px;
@@ -147,8 +153,12 @@ body {
   padding-left: 20px;
 }
 
+.review-info {
+  color: #5f5d5d;
+}
+
 .review-date {
-  font-size: 18px;
+  font-size: 16px;
   padding-left: 20px;
 }
 
@@ -191,9 +201,10 @@ body {
 .listing-image {
   height: 400px;
   width: 800px;
-  margin-left: 25%;
+  margin-left: 30%;
   margin-right: 25%;
-  padding-top: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .show-more {
@@ -203,9 +214,92 @@ body {
 }
 
 .right-div {
-  margin-left:auto; margin-right:50px;
+  margin-left: auto;
+  margin-right: 50px;
 }
 
 .left-div {
   float: left;
+}
+
+.right-span {
+  float: right;
+}
+
+.password-reset {
+  color: green;
+  font-size: 16px;
+  padding-bottom: 20px;
+  font-weight: 300;
+}
+
+.center-flex {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.p-rating.p-disabled .p-rating-icon,
+.p-rating.p-rating-readonly .p-rating-icon {
+  cursor: default;
+  color: teal;
+}
+
+.fixed-review {
+  position: absolute;
+  bottom: 15px;
+}
+
+.review-negative-margin {
+  margin-top: -5px;
+}
+
+.link-style {
+  color: #5f5d5d;
+  cursor: default;
+}
+
+.username-display {
+  margin-top: 4px;
+  padding-right: 20px;
+}
+
+.spinner-spacing {
+  margin-right: 20px;
+}
+
+.filter-div {
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-top: -20px;
+  margin-bottom: 10px;
+}
+
+.css-1pwe92q {
+  font-weight: bold;
+}
+
+.css-945dft {
+  font-weight: bold;
+}
+
+.filter-label-text {
+  font-size: 14px;
+  font-weight: bold;
+  padding-top: 25px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+.counter-text {
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.filter-apply {
+  margin-left: 75px;
+  margin-top: 20px;
 }

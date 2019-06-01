@@ -11,10 +11,9 @@ import {
 import { Rating } from "primereact/rating";
 
 const ListingCard = ({ listing }) => (
- 
   <div className="card-spacing">
-    <Link to={`/listingdetail/${listing.ListingId}`}>
-    <MDBCol>
+    <Link to={`/listingdetail/${listing.ListingId}`} className="link-style">
+      <MDBCol>
         <MDBCard style={{ width: "25rem", height: "32rem" }}>
           <MDBCardImage
             style={{ height: "18rem" }}
@@ -22,12 +21,12 @@ const ListingCard = ({ listing }) => (
             src={listing.PictureUrl}
           />
           <MDBCardBody style={{ height: "10rem" }}>
-            <MDBCardText>{listing.Name.substring(0, 30) + "..."}</MDBCardText>
+            <MDBCardText>{listing.Name.substring(0, 40) + "..."}</MDBCardText>
             <MDBCardTitle>
               {listing.Summary.substring(0, 50) + "..."}
             </MDBCardTitle>
-            <MDBCardText>{listing.Price} per night</MDBCardText>
-            <div className="inline-div content-section implementation">
+            <MDBCardText>{listing.Price} per night <span className="right-span">{listing.Accommodates} guests</span></MDBCardText>
+            <div className="inline-div content-section fixed-review">
               <Rating
                 value={(listing.ReviewScoresRating * 5) / 100}
                 readonly={true}
@@ -38,7 +37,7 @@ const ListingCard = ({ listing }) => (
             </div>
           </MDBCardBody>
         </MDBCard>
-    </MDBCol>
+      </MDBCol>
     </Link>
   </div>
 );

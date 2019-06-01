@@ -1,15 +1,12 @@
 import axios from "axios";
-import {
-  getJwtToken,
-  getRefreshToken,
-  saveJwtToken
-} from "../api/AuthActions";
+import { getJwtToken, getRefreshToken, saveJwtToken } from "../api/AuthActions";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 
 // Function that will be called to refresh authorization
 const refreshAuthLogic = () =>
   axios
-    .post("http://localhost:55615/api/tokenrefresh", {
+    .post("https://cmpe-term-project.azurewebsites.net/api/tokenrefresh", {
+    //.post("http://localhost:55615/api/tokenrefresh", {
       accessToken: getJwtToken(),
       refreshToken: getRefreshToken()
     })

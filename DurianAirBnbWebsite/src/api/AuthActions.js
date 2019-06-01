@@ -2,7 +2,8 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { SET_CURRENT_USER } from "../actions/actionTypes";
 
-const baseUrl = "http://localhost:55615";
+const baseUrl = "https://cmpe-term-project.azurewebsites.net";
+//const baseUrl = "http://localhost:55615";
 
 export function setCurrentUser(user, userId) {
   return {
@@ -32,6 +33,8 @@ export function requestPasswordReset(data) {
 }
 
 export function resetPassword(data) {
+  console.log("Calling resetPassword");
+  console.log("token: " + data.token);
   return async dispatch => {
     await axios.post(`${baseUrl}/api/login/passwordreset/${data.token}`, data);
   };

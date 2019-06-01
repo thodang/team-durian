@@ -3,6 +3,8 @@ import "./App.css";
 import Listings from "./components/Listings";
 import Login from "./components/login";
 import Signup from "./components/Signup";
+import PasswordReset from "./components/PasswordResetForm";
+import ForgotPassword from "./components/ForgotPasswordForm";
 import { PrivateRoute, PublicRoute } from "../src/Routes/index";
 import requireAuth from "../src/Utils/RequireAuth";
 import ListingDetail from "./components/ListingDetail";
@@ -25,6 +27,11 @@ class App extends Component {
               </Route>
               <PublicRoute path="/login" component={Login} />
               <PublicRoute path="/signup" component={Signup} />
+              <PublicRoute
+                path="/passwordreset/:token"
+                component={PasswordReset}
+              />
+              <PublicRoute path="/forgotpassword" component={ForgotPassword} />
               <PrivateRoute
                 path="/listings"
                 component={requireAuth(Listings)}
