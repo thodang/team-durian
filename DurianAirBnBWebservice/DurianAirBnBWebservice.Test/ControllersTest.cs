@@ -28,5 +28,41 @@ namespace DurianAirBnBWebservice.Test
             // Assert            
             Assert.IsType<OkObjectResult>(result);
         }
+
+        [Fact]
+        public void Test2_ListingController_GetListingsByPId_Found()
+        {
+            // Arrange
+            var mockRepo = new Mock<IMongoDbManager>();
+            var mockLogger = new Mock<ILogger<ListingController>>();
+
+            mockRepo.Setup(repo => repo.GetListingDetailById(9835)).Returns(new Listing());
+            var listingController = new ListingController(mockRepo.Object, mockLogger.Object);
+
+            // Act
+            var result = listingController.GetListingDetailById(9835);
+
+            // Assert            
+            Assert.IsType<OkObjectResult>(result);
+
+        }
+
+        [Fact]
+        public void Test3_ListingController_GetListingsByPId_NotFound()
+        {
+            // Arrange
+            var mockRepo = new Mock<IMongoDbManager>();
+            var mockLogger = new Mock<ILogger<ListingController>>();
+
+            mockRepo.Setup(repo => repo.GetListingDetailById(123456)).Returns(new Listing());
+            var listingController = new ListingController(mockRepo.Object, mockLogger.Object);
+
+            // Act
+            var result = listingController.GetListingDetailById(123456);
+
+            // Assert            
+            Assert.IsType<OkObjectResult>(result);
+
+        }
     }
 }
