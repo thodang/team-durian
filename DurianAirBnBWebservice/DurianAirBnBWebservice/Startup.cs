@@ -1,7 +1,9 @@
-﻿using System;
+﻿    using System;
 using System.Text;
 using System.Threading.Tasks;
-using DurianAirBnBWebservice.Repository;
+    using DurianAirBnBWebservice.Identity;
+    using DurianAirBnBWebservice.Model;
+    using DurianAirBnBWebservice.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -68,6 +70,8 @@ namespace DurianAirBnBWebservice
 
 
             services.AddScoped<IMongoDbManager, MongoDbManager>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITokenManager, TokenManager>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSingleton<IConfiguration>(Configuration);
         }

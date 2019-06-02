@@ -148,13 +148,13 @@ namespace DurianAirBnBWebservice.Identity
             //hash the hash, repeat 10000 times
             var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
 
-            //place the string in the byte array - has is 20 bytes
+            //place the string in the byte array - hash is 20 bytes
             var hash = pbkdf2.GetBytes(20);
 
             //make a new byte array to stored the hashed password+salt
             var hashBytes = new byte[36];
 
-            //place the has and salt in their respective places
+            //place the hash and salt in their respective places
             Array.Copy(salt, 0, hashBytes, 0, 16);
             Array.Copy(hash, 0, hashBytes, 16, 20);
 

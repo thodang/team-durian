@@ -9,7 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace DurianAirBnBWebservice.Model
 {
-    public class TokenManager
+    public class TokenManager : ITokenManager
     {
         private readonly string _secretKey;
         private readonly IConfiguration _configuration;

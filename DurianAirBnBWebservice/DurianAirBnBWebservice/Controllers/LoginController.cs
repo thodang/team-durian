@@ -18,15 +18,15 @@ namespace DurianAirBnBWebservice.Controllers
     [Route("api/Login")]
     public class LoginController : ControllerBase
     {
-        private readonly UserRepository _userRepository;
-        private readonly TokenManager _tokenManager;
+        private readonly IUserRepository _userRepository;
+        private readonly ITokenManager _tokenManager;
         private readonly ILogger<LoginController> _logger;
         private readonly IConfiguration _configuration;
 
-        public LoginController(IConfiguration configuration, ILogger<LoginController> logger)
+        public LoginController(IUserRepository userRepository, ITokenManager tokenManager, IConfiguration configuration, ILogger<LoginController> logger)
         {
-            _userRepository = new UserRepository(configuration);
-            _tokenManager = new TokenManager(configuration);
+            _userRepository = userRepository;//new UserRepository(configuration);
+            _tokenManager = tokenManager;//new TokenManager(configuration);
             _logger = logger;
             _configuration = configuration;
         }
@@ -38,7 +38,7 @@ namespace DurianAirBnBWebservice.Controllers
             {
                 if (user == null || string.IsNullOrEmpty(user.UserName))
                     return BadRequest("Invalid User data");
-
+                    
                 var validatedUser = _userRepository.ValidateUser(user, out var userExists);
 
                 if (validatedUser == null)
