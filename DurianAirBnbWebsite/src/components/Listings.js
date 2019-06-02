@@ -82,10 +82,6 @@ class Listings extends React.Component {
     });
   };
 
-  componentDidMount() {
-    this.loadListings();
-  }
-
   decrement() {
     if(this.state.guests > 1) {
       this.setState({
@@ -95,7 +91,7 @@ class Listings extends React.Component {
     } 
   }
 
-increment() {
+  increment() {
     if(this.state.guests < 16) {
       this.setState({
         guests: this.state.guests + 1,
@@ -113,6 +109,11 @@ increment() {
     this.setState({listings: [], from: 0, usefilter: true});
     this.loadListingsWithFilter();
   }
+  
+  componentDidMount() {
+    this.loadListings();
+  }
+
 
   render() {
     const { error, hasMore, loading } = this.state;

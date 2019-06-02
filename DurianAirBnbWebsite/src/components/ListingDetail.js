@@ -36,7 +36,7 @@ class ListingDetail extends React.Component {
   render() {
     const { listing, reviews, loading } = this.state;
 
-    if (this.state.devices === null || loading) {
+    if (loading) {
       return (
         <div className="center-flex">
           <div

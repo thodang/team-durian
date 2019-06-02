@@ -6,7 +6,7 @@ const ReviewTemplate = ({ review }) => (
     <div>
       <div className="inline-div review-header review-info">
         {review.ReviewerName}{" "}
-        <div className="host-id">(ID: {review.ReviewerId})</div>
+        {/*<div className="host-id">(ID: {review.ReviewerId})</div>*/}
       </div>
       <div className="review-date">{review.Date}</div>
     </div>
